@@ -50,10 +50,10 @@ export default function App() {
   });
 
   return (
-    <div className="flex flex-col bg-gray-800">
+    <div className="flex flex-col bg-gradient-to-b from-gray-800 to-green-400/60">
       <div className="max-w-7xl mx-auto w-full ">
         <div className="my-4 flex items-center justify-center">
-          <h1 className="text-4xl font-bold text-white mb-2">
+          <h1 className="text-4xl font-bold text-gray-200 mb-2">
             Pregled spakovanih kotura{" "}
             {new Date().toLocaleDateString("sr-Latn-RS", { weekday: "long" })}{" "}
             {new Date().toLocaleDateString("sr-RS")}{" "}
@@ -100,11 +100,16 @@ export default function App() {
       </div>
 
       {/* Fiksiran donji deo */}
-      <div className="fixed bottom-0 left-0 w-full bg-gray-800 z-10 border-t border-gray-700">
+      <div
+        className="fixed bottom-0 left-0 w-full z-10 bg-gradient-to-b from-gray-800/95 to-green-400/95"
+        // style={{
+        //   background: "linear-gradient(90deg, #1e293b 0%, #334155 50%, #22d3ee 100%)",
+        // }}
+      >
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* ...statistika cards... */}
-            <Card className="bg-gray-700 border-gray-600">
+            <Card className="bg-gray-700/80 border-gray-600">
               <CardHeader>
                 <CardTitle className="text-lg text-white">
                   Statistika:
@@ -122,7 +127,7 @@ export default function App() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gray-700 border-gray-600">
+            <Card className="bg-gray-700/80 border-gray-600">
               <CardHeader>
                 <CardTitle className="text-lg text-white">
                   Poslednje spakovano
@@ -156,7 +161,7 @@ export default function App() {
               </CardContent>
             </Card>
 
-            <Card className="bg-gray-700 border-gray-600">
+            <Card className="bg-gray-700/80 border-gray-600">
               <CardHeader>
                 <CardTitle className="text-lg text-white">
                   Broj spakovanih kotura
