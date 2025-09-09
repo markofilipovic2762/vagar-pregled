@@ -5,7 +5,35 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { srLatn } from "date-fns/locale"; // Serbian Latin
 
-const Pregled = ({ handlePrikaziPregled }) => {
+interface Vezivac {
+  id: number;
+  ime: string;
+  smena: number;
+  koture: number;
+}
+
+interface Smena {
+  vezivaci: Vezivac[];
+  ukupnoKotura: number;
+}
+
+interface Dan {
+  datum: string; // "YYYY-MM-DD"
+  smene: {
+    "1": Smena;
+    "2": Smena;
+    "3": Smena;
+  };
+  ukupnoDan: number;
+}
+
+interface PregledResponse {
+  period: string; // "YYYY-MM-DD - YYYY-MM-DD"
+  ukupnoKotura: number;
+  dani: Dan[];
+}
+
+const Pregled = ({ handlePrikaziPregled }: {handlePrikaziPregled: any}) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [data, setData] = useState(null);
