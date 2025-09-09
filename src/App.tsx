@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PackageCheck } from "lucide-react";
+import { Button } from "./components/ui/button";
+import Pregled from "./Pregled";
 
 interface Kotur {
   proizvod: string;
@@ -17,6 +19,13 @@ export default function App() {
   const [koturi, setKoturi] = useState<Kotur[]>([]);
   const [newCoilIds, setNewCoilIds] = useState<string[]>([]);
   const prevKoturi = useRef<Kotur[]>([]); // <-- koristi useRef
+  const [prikaziPregled, setPrikaziPregled] = useState(false);
+
+  const handleClick = () => {
+    setPrikaziPregled(true);
+  };
+
+  const handlePrikaziPregled = () => setPrikaziPregled(false);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -49,8 +58,10 @@ export default function App() {
     return 0;
   });
 
-  return (
-    <div className="flex flex-col bg-gradient-to-b from-gray-800 to-green-400/60">
+  return prikaziPregled ? (
+    <Pregled handlePrikaziPregled={handlePrikaziPregled}/>
+  ) : (
+    <div className="flex flex-col bg-gradient-to-b from-gray-800 to-green-400/60 min-h-screen">
       <div className="max-w-7xl mx-auto w-full ">
         <div className="my-4 flex items-center justify-center">
           <h1 className="text-4xl font-bold text-gray-200 mb-2">
@@ -120,7 +131,8 @@ export default function App() {
                   <div className="flex justify-between">
                     <span className="text-gray-300">Ukupno kotura danas:</span>
                     <span className="font-semibold text-white">
-                      {koturi.length}
+                      Uskoro...
+                      {/* {koturi.length} */}
                     </span>
                   </div>
                 </div>
@@ -145,11 +157,9 @@ export default function App() {
                       <p className="font-semibold text-white">
                         Kotur: {lastPacked.proizvod}
                       </p>
-                      <p className="text-sm text-gray-300">
-                        {lastPacked.datum}
-                      </p>
+                      <p className="text-gray-300">{lastPacked.datum}</p>
                       {lastPacked.vezivac && (
-                        <p className="text-sm text-green-400">
+                        <p className="text-green-400">
                           Spakovao: {lastPacked.vezivac}
                         </p>
                       )}
@@ -164,11 +174,17 @@ export default function App() {
             <Card className="bg-gray-700/80 border-gray-600">
               <CardHeader>
                 <CardTitle className="text-lg text-white">
-                  Broj spakovanih kotura
+                  Broj spakovanih kotura po vezivaču
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="">
+              <CardContent className="text-white">
+                <Button
+                  className="bg-gray-200 text-gray-700 hover:text-gray-200 cursor-pointer"
+                  onClick={handleClick}
+                >
+                  Klikni ovde
+                </Button>
+                {/* <div className="">
                   {Object.entries(
                     koturi.reduce<Record<string, number>>((acc, curr) => {
                       const key = curr.vezivac || "Nepoznato";
@@ -187,7 +203,7 @@ export default function App() {
                       <hr className="border-gray-600" />
                     </>
                   ))}
-                </div>
+                </div> */}
               </CardContent>
             </Card>
           </div>
